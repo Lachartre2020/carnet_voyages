@@ -17,45 +17,34 @@
 	<div class="row">""</div>
 	<div class="row">""</div>
 	<div class="container">
-			<h2>Liste pays</h2>
+			<h2>Liste ressources</h2>
+			<h3 th:text="|Etape - ${etape.nameVille} |">étape</h3>
 	</div>
 	<!-- Fin-- Div à ajouter pour que la page ne passe pas sous le menu -->
 
 	<div class="container">
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreationPays">Ajouter un pays</button>
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreationRessource">Ajouter une ressource</button>
 			
 	<!-- Modal -->
-	<div class="modal fade" id="CreationPays" tabindex="-1" aria-labelledby="CreationPaysLabel" aria-hidden="true">
+	<div class="modal fade" id="CreationRessource" tabindex="-1" aria-labelledby="CreationRessourceLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="CreationPaysLabel">Ajouter un pays</h5>
+					<h5 class="modal-title" id="CreationRessourceLabel">Ajouter une ressource</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					<form method="post" th:action="@{/list/pays/creat}" >
+				<div class="modal-body">   	/{idPays}/{idEtape}/list/ressource/creat
+					<form method="post" th:action="@{'/' + ${idPays} + '/' + ${etape.id} + '/list/ressource/creat'}" th:object="${ressources}" >
+						
+						<input type="text"  id="idetape" name="id" th:value="${etape.id}">
 					    <div class="form-group row">
-							<label for="pays-name" class="col-sm-3 col-form-label">Nom:</label>
+							<label for="lien-site" class="col-sm-3 col-form-label">lien de site:</label>
 							<div class="col-sm-9">
-								<input type="text" id="pays-name" name="name" placeholder="Pays" required="required">
+								<input type="text" id="lien-site" name="lienSite" placeholder="lien de site">
 							</div>
 						</div>				
-									
-					    <div class="form-group row">
-					    	<label for="pays-datedebut" class="col-sm-3 col-form-label">date debut:</label>
-							<div class="col-sm-9">
-								<input type="text" id="pays-datedebut" name="dateDeb" placeholder="Date début séjour" required="required">
-							</div>
-						</div>
 
-					    <div class="form-group row">
-							<label for="pays-datefin" class="col-sm-3 col-form-label">date debut:</label>					    						
-							<div class="col-sm-9">
-								<input type="text" id="pays-datefin" name="dateFin" placeholder="Date fin séjour" required="required">
-							</div>
-						</div>
-												
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Ajouter</button>
 					</form>
 				</div>
@@ -64,47 +53,35 @@
 	</div>
 	</div>
 
-
 	<div class="container">
 		<div class="row">
        		<div class="col-md-12">
 		        <div class="table-responsive">	
 					<table id="mytable" class="table table-bordred table-striped">
 							<tr>
-								<th>Id</th>
-								<th>Name</th>
-								<th>Date debut</th>
-								<th>Date Fin</th>
-								<th>Details</th>
+								<th>Id étape</th>
+								<th>Id ressource</th>
+								<th>lien de site</th>
 								<th>Modification</th>
 								<th>Suppression</th>
 							</tr>								
 						<tbody>
-		    				<tr th:each="pays : ${pays}">
-		        				<td th:text="${pays.id}">id</td>
-		        				<td th:text="${pays.name}">name</td>
-		        				<td th:text="${pays.dateDeb}">date debut</td>
-		        				<td th:text="${pays.dateFin}">date fin</td>
+ 		    				<tr th:each="ressource : ${ressources}">
+		        				<td th:text="${etape.id}">id</td>
+		        				<td th:text="${ressource.id}">id</td>
+		        				<td th:text="${ressource.lienSite}">LienSsite</td>
 		        				
-								<td style="width: 10%;">
-									<a th:href="'/' + ${pays.id} + '/list/etapes'" class="table-link">
-										<span class="fa-stack">
-											<i class="fa fa-square fa-stack-2x"></i>
-											<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-										</span>
-									</a>
-								</td>	
-								<td style="width: 10%;">					
-										<a th:href="'/list/pays/' + ${pays.id} + '/AffichModif'" class="table-link">
+								<td style="width: 10%;">								
+										<a th:href="'/' + ${idPays} + '/'  + ${etape.id} + '/list/ressource/affichModif/' + ${ressource.id}" class="table-link">
 										<span class="fa-stack">
 											<i class="fa fa-square fa-stack-2x"></i>
 											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
 										</span>
 									</a>
 								</td>
-								
-								<td style="width: 10%;">									
-									<a th:href="'/list/pays/' + ${pays.id}+ '/supp'" class="table-link danger">
+														
+								<td style="width: 10%;">   						
+									<a th:href="'/' + ${idPays} + '/' + ${etape.id} + '/list/ressource/' + ${ressource.id} + '/supp'" class="table-link danger">
 										<span class="fa-stack">
 											<i class="fa fa-square fa-stack-2x"></i>
 											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -114,7 +91,8 @@
 								
 		    				</tr>							
 						</tbody> 
-					</table>							 
+					</table>	
+					<a th:href="'/' + ${idPays} + '/list/etapes'" class="btn btn-primary" role="button">Retour</a>						 
 				</div>		
 			</div>		
 		</div>

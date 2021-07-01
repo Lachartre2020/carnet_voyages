@@ -9,9 +9,7 @@ public class Ressource {
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
-		private String lienGalPhoto;
-		private String lienRestau;
-		private String lienAutre;
+		private String lienSite;
 		
 		@ManyToOne
 		@JoinColumn(name = "etape_id")
@@ -28,36 +26,20 @@ public class Ressource {
 		public void setId(Long id) {
 			this.id = id;
 		}
-			
-		public String getLienGalPhoto() {
-			return this.lienGalPhoto;
-		}
-		
-		public void setLienGalPhoto(String lienGalPhoto) {
-			this.lienGalPhoto = lienGalPhoto;
-		}
-		
-		public String getLienRestau() {
-			return this.lienRestau;
-		}
-		
-		public void setLienRestau(String lienRestau) {
-			this.lienRestau = lienRestau;
-		}	
-	
-		public String getLienAutre() {
-			return this.lienAutre;
-		}
-		
-		public void setLienAutre(String lienAutre) {
-			this.lienAutre = lienAutre;
-		}
 		
 		public Etape getEtape() {
 			return this.etape;
 		}
-		
+			
 		public void setEtape(Etape etape) {
 			this.etape = etape;
+		}		
+			
+		public String getLienSite() {
+			return this.lienSite;
+		}
+		
+		public void setLienSite(String lienSite) {
+			this.lienSite = lienSite;
 		}
 }

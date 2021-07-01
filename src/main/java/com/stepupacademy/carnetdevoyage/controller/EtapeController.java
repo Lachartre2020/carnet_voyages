@@ -28,15 +28,16 @@ public class EtapeController {
     @Autowired
     private EtapeService etapeService;    
     
-    @GetMapping("/list/{idPays}/etapes")
+    @GetMapping("/{idPays}/list/etapes")
     public String listEtape(Model model, @PathVariable Long idPays)
     {
+
          if (idPays != null) {
             Optional<Pays> optionalPays = paysService.findById(idPays);
             Pays pays = new Pays();
             List<Etape> etapes = new ArrayList<>();
             if (optionalPays.isPresent()) {
-                pays = optionalPays.get();
+                pays = optionalPays.get();                                                                                                   
                 etapes = optionalPays.get().getEtapes();
                 model.addAttribute("pays",pays);
                 model.addAttribute("etapes",etapes);
@@ -45,7 +46,7 @@ public class EtapeController {
         return "etapeList";
     }   
     
-    @PostMapping("/list/{idPays}/etape")
+    @PostMapping("/{idPays}/list/etape/creat")
     public String createEtape(Long id, String nameVille, String dateEtape, String resume) throws ParseException
     {
     	Date dateEtapeParse=new SimpleDateFormat("yyyy-MM-dd").parse(dateEtape);
@@ -62,11 +63,12 @@ public class EtapeController {
     			etapeService.save(etape);
     		}	
     	}    
-    	return "redirect:/list/" + id + "/etapes";
+
+    	return "redirect:/" + id + " /list/etapes";
     }    
     
-    @GetMapping("/list/{idPays}/delete/{idEtape}")
-    public String deleteEtape(@PathVariable Long idPays, @PathVariable Long idEtape)
+    @GetMapping("/{idPays}/list/etape/{idEtape}/supp")
+    public String suppEtape(@PathVariable Long idPays, @PathVariable Long idEtape)
     {
     	Etape etape = new Etape();
 		Optional<Etape> optionalEtape = etapeService.findById(idEtape);
@@ -75,11 +77,12 @@ public class EtapeController {
         	etape = optionalEtape.get();
         	etapeService.delete(etape);
 		}
-        return "redirect:/list/" + idPays + "/etapes";
-    }    
-    			  
-    @PostMapping("/modif/{idPays}/{idEtape}")
-    public String updateEtape(String nameVille, String dateEtape, String resume , @PathVariable Long idPays, @PathVariable Long idEtape) throws ParseException
+        return "redirect:/" + idPays + "/list/etapes";
+    }
+
+    			 
+    @PostMapping("/{idPays}/list/etape/{idEtape}/modif")
+    public String modifEtape(String nameVille, String dateEtape, String resume , @PathVariable Long idPays, @PathVariable Long idEtape) throws ParseException
     {
        	Date dateEtapeParse=new SimpleDateFormat("yyyy-MM-dd").parse(dateEtape);
     	
@@ -93,11 +96,12 @@ public class EtapeController {
 			etape.setResume(resume);
 			etapeService.save(etape);
 		}    	
-
-        return "redirect:/list/" + idPays + "/etapes";
+       
+        return "redirect:/" + idPays + "/list/etapes";
     }      
     
-    @GetMapping("/list/{idPays}/affichModif/{idEtape}")
+
+    @GetMapping("/{idPays}/list/etape/affichModif/{idEtape}")
     public String affichModifEtape(Model model, @PathVariable Long idPays, @PathVariable Long idEtape)
     {
     	Etape etape = new Etape();
@@ -109,7 +113,7 @@ public class EtapeController {
             model.addAttribute("idPays",idPays);
         	return "etapeUpdate";
 		}
-        return "redirect:/list/" + idPays + "/etapes";
+        return "redirect:/" + idPays + "/list/etapes";
     } 
   
 }

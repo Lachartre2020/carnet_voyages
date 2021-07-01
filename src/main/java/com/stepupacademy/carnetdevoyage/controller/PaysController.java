@@ -24,7 +24,7 @@ public class PaysController
     @Autowired
     private PaysService paysService;
 
-    @GetMapping("/lists")
+    @GetMapping("/list/pays")
     public String listPays(Model model)
     {
         List<Pays> paysList = new ArrayList<>();
@@ -34,27 +34,29 @@ public class PaysController
         return "paysList";
     }
 
-    @PostMapping("/lists")
+    @PostMapping("/list/pays/creat")
     public String createPays(String name, String dateDeb, String dateFin ) throws ParseException
     {
     	Date dateDebCast=new SimpleDateFormat("yyyy-MM-dd").parse(dateDeb);
     	Date dateFinCast=new SimpleDateFormat("yyyy-MM-dd").parse(dateFin);
-    	
+
     	Pays pays = new Pays();
     	pays.setName(name);
     	pays.setDateDeb(dateDebCast);
     	pays.setDateFin(dateFinCast);
     	paysService.save(pays);
 
-        return "redirect:/lists/";
+        return "redirect:/list/pays";
     }
 
-    @PostMapping("/modif/{idPays}")
-    public String updatePays(String name, String dateDeb, String dateFin, @PathVariable Long idPays) throws ParseException
+    			 
+    @PostMapping("/list/pays/{idPays}/modif")
+    public String modifPays(String name, String dateDeb, String dateFin, @PathVariable Long idPays) throws ParseException
     {
+    	 System.out.println("*****" + idPays);	 
     	Date dateDebCast=new SimpleDateFormat("yyyy-MM-dd").parse(dateDeb);
     	Date dateFinCast=new SimpleDateFormat("yyyy-MM-dd").parse(dateFin);
-    	
+          	
     	Pays pays = new Pays();
         Optional<Pays> optionalPays = paysService.findById(idPays);
         if (optionalPays.isPresent()) 
@@ -66,11 +68,11 @@ public class PaysController
         	paysService.save(pays);
 		}    	
 
-        return "redirect:/lists/";
+        return "redirect:/list/pays";
     }     
-
-    @GetMapping("/lists/delete/{idPays}")
-    public String deletePays(Model model, @PathVariable Long idPays)
+    		   
+    @GetMapping("/list/pays/{idPays}/supp")
+    public String suppPays(Model model, @PathVariable Long idPays)
     {
         Pays pays = new Pays();
         Optional<Pays> optionalPays = paysService.findById(idPays);
@@ -79,10 +81,11 @@ public class PaysController
         	pays = optionalPays.get();
         	paysService.delete(pays);
 		}
-        return "redirect:/lists/";
+
+        return "redirect:/list/pays";
     }      
 
-    @GetMapping("/list/{idPays}/modif")
+    @GetMapping("/list/pays/{idPays}/AffichModif")
     public String affichModifPays(Model model, @PathVariable Long idPays)
     {
         Pays pays = new Pays();

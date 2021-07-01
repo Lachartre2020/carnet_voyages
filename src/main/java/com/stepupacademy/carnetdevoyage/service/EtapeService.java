@@ -31,8 +31,4 @@ public class EtapeService {
 	public void delete(Etape etape) {
 		etapeRepository.delete(etape);
 	}
-
-	
-	
-	
 }
