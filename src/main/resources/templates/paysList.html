@@ -56,7 +56,9 @@
 						</div>
 												
 						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Ajouter</button>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmation">Ajouter un pays</button>
+   
+						<p th:replace="fragments/confirmation.html :: conf"></p>
 					</form>
 				</div>
 			</div>
