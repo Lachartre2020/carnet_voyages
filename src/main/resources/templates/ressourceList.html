@@ -33,10 +33,9 @@
 					<h5 class="modal-title" id="CreationRessourceLabel">Ajouter une ressource</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">   	/{idPays}/{idEtape}/list/ressource/creat
+				<div class="modal-body">   
 					<form method="post" th:action="@{'/' + ${idPays} + '/' + ${etape.id} + '/list/ressource/creat'}" th:object="${ressources}" >
-						
-						<input type="text"  id="idetape" name="id" th:value="${etape.id}">
+						<input type="hidden"  id="idetape" name="id" th:value="${etape.id}">
 					    <div class="form-group row">
 							<label for="lien-site" class="col-sm-3 col-form-label">lien de site:</label>
 							<div class="col-sm-9">

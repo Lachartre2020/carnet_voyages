@@ -11,7 +11,7 @@ public class Ressource {
 		
 		private String lienSite;
 		
-		@ManyToOne
+		@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 		@JoinColumn(name = "etape_id")
 		private Etape etape;
 	

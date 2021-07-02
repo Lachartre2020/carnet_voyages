@@ -16,7 +16,7 @@ public class Pays {
 	private Date dateFin;
 		
 	
-	@OneToMany(mappedBy = "pays")
+	@OneToMany(mappedBy = "pays", cascade = CascadeType.ALL)
 	private List<Etape> etapes;
 
 	public void setId(Long id) {

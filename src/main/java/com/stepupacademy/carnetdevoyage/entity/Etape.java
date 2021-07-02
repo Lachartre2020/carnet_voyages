@@ -17,11 +17,11 @@ public class Etape {
 	private String resume;
 	
 		
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "pays_id")
 	private Pays pays;
 	
-	@OneToMany(mappedBy = "etape")
+	@OneToMany(mappedBy = "etape", cascade = CascadeType.ALL)
 	private List<Ressource> ressources;	
 	
 	public Etape(){

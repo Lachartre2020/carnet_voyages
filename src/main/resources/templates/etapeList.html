@@ -35,7 +35,7 @@
 				</div>
 				<div class="modal-body">  
 					<form method="post" th:action="@{'/' + ${pays.id} + '/list/etape/creat'}" th:object="${etapes}" >
-						<input type="text"  id="idpays" name="id" th:value="${pays.id}">
+						<input type="hidden"  id="idpays" name="id" th:value="${pays.id}">
 					    <div class="form-group row">
 							<label for="name-ville" class="col-sm-3 col-form-label">Ville:</label>
 							<div class="col-sm-9">
